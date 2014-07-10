@@ -1,6 +1,6 @@
 # Hacks
 - puPHPet generate vagrant file with bad file permission (don't change file in this repo)
-- puPHPet generate AllowOverride not properly (don't change /puphpet/puppet/modules/apache/manifests/vhost.pp file in this repo)
+- puPHPet generate AllowOverride not properly (don't change `/puphpet/puppet/modules/apache/manifests/vhost.pp` file in this repo)
 
 # Template project
 This branch use php5.5 and yii1.1.14
