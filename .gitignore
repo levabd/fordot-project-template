@@ -36,3 +36,10 @@ themes/classic/views/
 !puphpet/files/dot/.zsh*
 !puphpet/files/dot/.vim*
 .VirtualBox
+
+#Sync
+.SyncIgnore
+.SyncID
+.SyncArchive
+.dropbox.cache
+.dropbox
