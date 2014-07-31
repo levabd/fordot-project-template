@@ -40,5 +40,9 @@ themes/classic/views/
 #Sync
 .SyncID
 .SyncArchive
+*.Sync
+.SyncPart
+.SyncTemp
+.SyncOld
 .dropbox.cache
 .dropbox
