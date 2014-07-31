@@ -38,7 +38,6 @@ themes/classic/views/
 .VirtualBox
 
 #Sync
-.SyncIgnore
 .SyncID
 .SyncArchive
 .dropbox.cache
