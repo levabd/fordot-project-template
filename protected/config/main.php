@@ -8,7 +8,7 @@ $pathLocalConfig = dirname(__FILE__) . '/main.local.php';
 return CMap::mergeArray(
     array(
         'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-        'name'=>'Providers.com.ua',
+        'name'=>'site.com.ua',
         'language' => 'ru',
         'defaultController' => 'site',
         'timeZone' => 'Europe/Kiev',
@@ -16,6 +16,14 @@ return CMap::mergeArray(
         // preloading 'log' component
         'preload'=>array('log'),
 
+        // path aliases
+        'aliases' => array(
+            'bootstrap' => realpath(__DIR__ . '/../extensions/bootstrap'), // change this if necessary
+        ),
+        // import paths
+        'import' => array(
+            'bootstrap.helpers.TbHtml',
+        ),
         // autoloading model and component classes
         'import'=>array(
             'application.models.*',
@@ -23,11 +31,14 @@ return CMap::mergeArray(
         ),
 
         'modules'=>array(
-
+            'admin',
         ),
 
         // application components
         'components'=>array(
+            'bootstrap' => array(
+                'class' => 'bootstrap.components.TbApi',
+            ),
             'swiftMailer' => array(
                 'class' => 'ext.swiftMailer.SwiftMailer', ),
             'mailerSent' => array(
@@ -44,6 +55,8 @@ return CMap::mergeArray(
                 'urlSuffix' => '/',
                 'rules'=>array(
                     '' => 'site/index',
+                    'admin' => 'admin/login',
+                    'admin/logout' => 'admin/login/logout',
                     //'<controller:\w+>/<id:\d+>'=>'<controller>/view',
                     //'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
                     //'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
@@ -84,7 +97,7 @@ return CMap::mergeArray(
             // uncomment the following to use a MySQL database
 
             'db'=>array(
-                'connectionString' => 'mysql:host=localhost;dbname=providers',
+                'connectionString' => 'mysql:host=localhost;dbname=serverdb',
                 'emulatePrepare' => true,
                 'username' => 'prod_user',
                 'password' => 'prod_pass',
@@ -110,23 +123,26 @@ return CMap::mergeArray(
         // application-level parameters that can be accessed
         // using Yii::app()->params['paramName']
         'params'=>array(
+            'siteURL'=>'site.com.ua',
+            'indexationRights' => 'index,follow',
             // this is used in contact page
-            'adminEmail'=>'support@providers.com.ua',
+            'adminEmail'=>'support@site.com.ua',
             //base mail settings scope
             'emailSent' => array(
-                'mailHost' => 'smtp.providers.com.ua',
+                'mailHost' => 'smtp.site.com.ua',
                 'mailPort' => 465, // Optional
                 'ssl' => true, //Optional
-                'user' => 'smtp.user@providers.com.ua',
+                'user' => 'smtp.user@site.com.ua',
                 'pass' => 'smtp.pass',
-                'defaultFrom' => array('support@providers.com.ua' => 'providers.com.ua заявка с сайта'), //Optional
+                'defaultFrom' => array('support@site.com.ua' => 'site.com.ua заявка с сайта'), //Optional
             ),
 
             //additional mail settings scope
-            'emailToName' => 'providers.com.ua заявка с сайта ',
-            'emailTo' => array('sell@providers.com.ua' => Yii::app()->params['emailToName']),
+            'emailToName' => 'site.com.ua заявка с сайта ',
+            'emailTo' => array('sell@site.com.ua' => Yii::app()->params['emailToName']),
 
             'pageSize' => 10,
+            'lastModify' => date(DATE_ATOM),
             'releaseDate' => date(DATE_ATOM, mktime(12, 0, 0, 1, 9, 2014)),
         ),
     ),

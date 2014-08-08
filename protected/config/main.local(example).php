@@ -3,6 +3,7 @@ return array(
     'name'=>'local.providers.com.ua',
     'modules'=>array(
         'gii'=>array(
+            'generatorPaths' => array('bootstrap.gii'),
             'class'=>'system.gii.GiiModule',
             'password'=>'root',
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
@@ -37,6 +38,8 @@ return array(
     ),
 
     'params'=>array(
+        'siteURL'=>'localhost',
+        'indexationRights' => 'noindex, nofollow',
         // this is used in contact page
         'adminEmail'=>'developer@email.com',
         'emailSent' => array(
