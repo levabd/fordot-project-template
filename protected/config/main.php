@@ -8,23 +8,20 @@ $pathLocalConfig = dirname(__FILE__) . '/main.local.php';
 return CMap::mergeArray(
     array(
         'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-        'name'=>'site.com.ua',
+        'name'=>'Providers.com.ua',
         'language' => 'ru',
         'defaultController' => 'site',
         'timeZone' => 'Europe/Kiev',
 
-        // preloading 'log' component
-        'preload'=>array('log'),
+        // preloading 'log' and 'booster' component
+        'preload'=>array('log', 'booster'),
 
         // path aliases
         'aliases' => array(
-            'bootstrap' => realpath(__DIR__ . '/../extensions/bootstrap'), // change this if necessary
+            //'booster' => realpath(__DIR__ . '/../extensions/yiibooster'),
         ),
+
         // import paths
-        'import' => array(
-            'bootstrap.helpers.TbHtml',
-        ),
-        // autoloading model and component classes
         'import'=>array(
             'application.models.*',
             'application.components.*',
@@ -32,12 +29,59 @@ return CMap::mergeArray(
 
         'modules'=>array(
             'admin',
+            'usr'=>array(
+                'layout' => '//layouts/admin',
+                'formClass'=>'booster.widgets.TbActiveForm',
+                'detailViewClass'=>'booster.widgets.TbDetailView',
+                'gridViewClass' => 'booster.widgets.TbGridView',
+                /*'pictureUploadRules' => array(
+                        array(
+                            'file',
+                            'allowEmpty' => true,
+                            'types'=>'jpg, gif, png',
+                            'maxSize'=>2*1024*1024,
+                            'safe' => false,
+                            'maxFiles' => 1),
+                ),*/
+                'mailerConfig' => array(
+                    'SetLanguage' => array('ru'),
+                    'SetFrom' => array('registration@providers.com.ua', 'Робот'),
+                    'AddReplyTo' => array('registration@providers.com.ua','Робот'),
+                    'IsMail' => array(),
+                    // SMTP options from params of application
+                    // extension properties
+                    'setPathViews' => array('usr.views.emails'),
+                    'setPathLayouts' => array('usr.views.layouts'),
+                ),
+                'formCssClass'=>'form well',
+                'loginFormCssClass'=>'form',
+                'afterLoginStaticAction' => true,
+                'afterLoginUrl' => 'admin',
+                'alertCssClassPrefix'=>'alert alert-',
+                'submitButtonCssClass'=>'btn btn-primary',
+                'htmlCss' => array(
+                    'errorSummaryCss' => 'alert alert-error',
+                    'errorMessageCss' => 'text-error',
+                ),
+                'registrationEnabled' => false,
+                'hybridauthProviders' => array(
+                    'OpenID' => array('enabled'=>false),
+                    'Facebook' => array('enabled'=>false, 'keys'=>array('id'=>'', 'secret'=>''), 'scope'=>'email'),
+                ),
+                'userIdentityClass' => 'UserIdentity',
+            ),
         ),
 
         // application components
         'components'=>array(
-            'bootstrap' => array(
-                'class' => 'bootstrap.components.TbApi',
+            //'bootstrap' => array(
+            //    'class' => 'bootstrap.components.BsApi',
+            //),
+            'booster' => array(
+                'class' => 'ext.yiibooster.components.Booster',
+                'enableCdn' => true,
+                'fontAwesomeCss' => true,
+                'responsiveCss' => true,
             ),
             'swiftMailer' => array(
                 'class' => 'ext.swiftMailer.SwiftMailer', ),
@@ -45,6 +89,7 @@ return CMap::mergeArray(
                 'class' => 'ext.swiftMailer.MailerSent', ),
             'user'=>array(
                 // enable cookie-based authentication
+                'class' => 'WebUser',
                 'allowAutoLogin'=>true,
             ),
             // uncomment the following to enable URLs in path-format
@@ -55,8 +100,11 @@ return CMap::mergeArray(
                 'urlSuffix' => '/',
                 'rules'=>array(
                     '' => 'site/index',
-                    'admin' => 'admin/login',
-                    'admin/logout' => 'admin/login/logout',
+                    'site/login' => 'usr/default/login',
+                    'login' => 'usr/default/login',
+                    'logout' => 'usr/default/logout',
+                    'admin' => 'admin/summary',
+                    //'admin/<controller:\w+>' => 'admin/<controller>/index',
                     //'<controller:\w+>/<id:\d+>'=>'<controller>/view',
                     //'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
                     //'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
@@ -97,7 +145,8 @@ return CMap::mergeArray(
             // uncomment the following to use a MySQL database
 
             'db'=>array(
-                'connectionString' => 'mysql:host=localhost;dbname=serverdb',
+                'tablePrefix' => '',
+                'connectionString' => 'mysql:host=localhost;dbname=providers',
                 'emulatePrepare' => true,
                 'username' => 'prod_user',
                 'password' => 'prod_pass',
@@ -123,23 +172,25 @@ return CMap::mergeArray(
         // application-level parameters that can be accessed
         // using Yii::app()->params['paramName']
         'params'=>array(
-            'siteURL'=>'site.com.ua',
+            'siteURL'=>'providers.com.ua',
             'indexationRights' => 'index,follow',
             // this is used in contact page
-            'adminEmail'=>'support@site.com.ua',
+            'adminEmail'=>'support@providers.com.ua',
             //base mail settings scope
             'emailSent' => array(
-                'mailHost' => 'smtp.site.com.ua',
+                'mailHost' => 'smtp.providers.com.ua',
                 'mailPort' => 465, // Optional
                 'ssl' => true, //Optional
-                'user' => 'smtp.user@site.com.ua',
+                'user' => 'smtp.user@providers.com.ua',
                 'pass' => 'smtp.pass',
-                'defaultFrom' => array('support@site.com.ua' => 'site.com.ua заявка с сайта'), //Optional
+                'defaultFrom' => array('support@providers.com.ua' => 'providers.com.ua заявка с сайта'), //Optional
             ),
 
+            'roles' => array('admin', 'user', 'editor', 'accountManager'),
+
             //additional mail settings scope
-            'emailToName' => 'site.com.ua заявка с сайта ',
-            'emailTo' => array('sell@site.com.ua' => Yii::app()->params['emailToName']),
+            'emailToName' => 'providers.com.ua заявка с сайта ',
+            'emailTo' => array('sell@providers.com.ua' => Yii::app()->params['emailToName']),
 
             'pageSize' => 10,
             'lastModify' => date(DATE_ATOM),

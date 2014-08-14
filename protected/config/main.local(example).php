@@ -3,6 +3,7 @@ return array(
     'name'=>'local.providers.com.ua',
     'modules'=>array(
         'gii'=>array(
+            //'generatorPaths' => array('bootstrap.gii'),
             'generatorPaths' => array('booster.gii'),
             'class'=>'system.gii.GiiModule',
             'password'=>'root',

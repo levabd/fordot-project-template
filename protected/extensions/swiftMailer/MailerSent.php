@@ -36,7 +36,7 @@ class MailerSent {
 			->newMessage($topic)
 			->setFrom((($from === null) && isset(Yii::app()->params['emailSent']['defaultFrom'])) ? Yii::app()->params['emailSent']['defaultFrom'] : $from)
 			->setTo($to)
-			->setBody($content);
+			->setBody($content, 'text/html');
 
 		// Send mail
 		return $this->Mailer->send($Message);

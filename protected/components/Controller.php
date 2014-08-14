@@ -17,7 +17,7 @@ class Controller extends CController
 
     public $metaTags=array();
 
-    public $selfPageTitle;
+    public $selfPageTitle = '';
 
     public $cs;
 
@@ -38,6 +38,18 @@ class Controller extends CController
     public function init()
     {
         $this->cs = Yii::app()->clientScript;
+    }
+
+    public function filters()
+    {
+        //Учитывать правильно last modify это прекрасно
+
+        return array(
+            array(
+                'CHttpCacheFilter',
+                'lastModified'=> Yii::app()->params['lastModify'],
+            ),
+        );
     }
 
     public function render($view, $data = null, $return = false, $options = null)
