@@ -69,3 +69,6 @@ Inside development environment PhpMyAdmin will be available on http://localhost:
 Database **______**
 
 `user=root && pass=mysql`
+
+For user modules:
+`yiic migrate --migrationPath=application.modules.user.migrations`
