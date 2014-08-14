@@ -3,7 +3,7 @@ return array(
     'name'=>'local.providers.com.ua',
     'modules'=>array(
         'gii'=>array(
-            'generatorPaths' => array('bootstrap.gii'),
+            'generatorPaths' => array('booster.gii'),
             'class'=>'system.gii.GiiModule',
             'password'=>'root',
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
