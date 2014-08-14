@@ -62,6 +62,13 @@ other `/var/log/apache2/default_vhost_80_access.log`
 
 `vagrant vagrant`
 
+###Yii Environment Based on
+- [YiiBooster](http://yiibooster.clevertech.biz/)
+- [swiftMailer](http://swiftmailer.org/)
+- [yii-EClientScript minifier](https://github.com/muayyad-alsadi/yii-EClientScript)
+- [Content Compactor minifier](http://www.yiiframework.com/extension/contentcompactor/)
+- [yii-usr](https://github.com/nineinchnick/yii-usr)
+
 ###MySQL
 
 Inside development environment PhpMyAdmin will be available on http://localhost:3000/
