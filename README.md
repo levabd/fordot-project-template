@@ -40,6 +40,16 @@ mashine based on Debian Wheezy 7.5 x32
 8. vim
 9. mc
 
+## Yii Environment Based on
+- [YiiBooster](http://yiibooster.clevertech.biz/)
+- [Gii templates](https://github.com/schmunk42/gii-template-collection)
+- [yii-relation(for gii templates)](https://github.com/schmunk42/yii-relation)
+- [yii-usr](https://github.com/nineinchnick/yii-usr)
+- [REST Full API](https://github.com/evan108108/RESTFullYii)
+- [swiftMailer](http://swiftmailer.org/)
+- [yii-EClientScript minifier](https://github.com/muayyad-alsadi/yii-EClientScript)
+- [Content Compactor minifier](http://www.yiiframework.com/extension/contentcompactor/)
+
 ## How to set up environment
 
 - `vagrant up`
@@ -62,13 +72,6 @@ other `/var/log/apache2/default_vhost_80_access.log`
 
 `vagrant vagrant`
 
-###Yii Environment Based on
-- [YiiBooster](http://yiibooster.clevertech.biz/)
-- [swiftMailer](http://swiftmailer.org/)
-- [yii-EClientScript minifier](https://github.com/muayyad-alsadi/yii-EClientScript)
-- [Content Compactor minifier](http://www.yiiframework.com/extension/contentcompactor/)
-- [yii-usr](https://github.com/nineinchnick/yii-usr)
-
 ###MySQL
 
 Inside development environment PhpMyAdmin will be available on http://localhost:3000/
@@ -78,4 +81,4 @@ Database **______**
 `user=root && pass=mysql`
 
 For user modules:
-`yiic migrate --migrationPath=application.modules.user.migrations`
+`/protected/yiic migrate --migrationPath=application.modules.usr.migrations`

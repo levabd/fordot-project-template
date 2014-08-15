@@ -18,13 +18,15 @@ return CMap::mergeArray(
 
         // path aliases
         'aliases' => array(
-            //'booster' => realpath(__DIR__ . '/../extensions/yiibooster'),
+            'RestfullYii' =>realpath(__DIR__ . '/../extensions/starship/RestfullYii'),
         ),
 
         // import paths
         'import'=>array(
             'application.models.*',
             'application.components.*',
+            'application.vendor.gii-template-collection.components.*',
+            'application.vendor.yii-relation.behaviors.*',
         ),
 
         'modules'=>array(
@@ -98,17 +100,21 @@ return CMap::mergeArray(
                 'urlFormat'=>'path',
                 'showScriptName' => false,
                 'urlSuffix' => '/',
-                'rules'=>array(
-                    '' => 'site/index',
-                    'site/login' => 'usr/default/login',
-                    'login' => 'usr/default/login',
-                    'logout' => 'usr/default/logout',
-                    'admin' => 'admin/summary',
-                    //'admin/<controller:\w+>' => 'admin/<controller>/index',
-                    //'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-                    //'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-                    //'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-                ),
+                'rules' => CMap::mergeArray(
+                        array(
+                            '' => 'site/index',
+                            'site/login' => 'usr/default/login',
+                            'login' => 'usr/default/login',
+                            'logout' => 'usr/default/logout',
+                            'admin' => 'admin/summary',
+                            //'admin/<controller:\w+>' => 'admin/<controller>/index',
+                            //'<controller:\w+>/<id:\d+>'=>'<controller>/view',
+                            //'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+                            //'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+                        ),
+                        //RESTFULL
+                        file_exists(dirname(__FILE__) . '/../extensions/starship/RestfullYii/config/routes.php') ? require dirname(__FILE__) . '/../extensions/starship/RestfullYii/config/routes.php' : array()
+                    ),
             ),
             'contentCompactor' => array(
                 'class' => 'ext.contentCompactor.ContentCompactor',
